@@ -1,0 +1,20 @@
+from sklearn.datasets import fetch_openml
+from sklearn.model_selection import train_test_split
+import numpy as up
+from sklearn.svm import SVC
+
+X, Y = fetch_openml('mnist_784', version=1, data_home='./scikit_learn_data', return_X_y=True)
+X = X / 255.
+X_train, X_test, Y_train, Y_test = train_test_split(X[::10], Y[::10], test_size=1000)
+
+SVM = SVC(C=4, cache_size=200, class_weight=None, coef0=0.0,
+  decision_function_shape='ovr', degree=3, gamma='scale', kernel='rbf',
+  max_iter=-1, probability=False, random_state=1, shrinking=True,
+  tol=0.0001, verbose=False)
+SVM.fit(X_train, Y_train)
+
+train_accuracy=SVM.score(X_train, Y_train)
+test_accuracy=SVM.score(X_test, Y_test)
+
+print('Training accuracy: %0.2f%%' % (train_accuracy*100))
+print('Testing accuracy: %0.2f%%' % (test_accuracy*100))
