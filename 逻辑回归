@@ -1,0 +1,16 @@
+from sklearn.datasets import fetch_openml
+import numpy as up
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn import metrics
+
+X, Y = fetch_openml('mnist_784', version=1, data_home='./scikit_learn_data', return_X_y=True)
+X = X / 255.
+
+X_train, X_test, Y_train, Y_test = train_test_split(X[::10], Y[::10], test_size=1000)
+clf = LogisticRegression(random_state=0,penalty='l2',tol=0.0001,intercept_scaling=1).fit(X_train, Y_train)
+clf.score(X_train, Y_train)
+
+regression = LogisticRegression(random_state=0,penalty='l2',tol=0.0001,intercept_scaling=1).fit(X_train, Y_train)
+regression.score(X_train, Y_train)
+regression.score(X_test, Y_test)
