@@ -8,9 +8,8 @@ X, Y = fetch_openml('mnist_784', version=1, data_home='./scikit_learn_data', ret
 X = X / 255.
 
 X_train, X_test, Y_train, Y_test = train_test_split(X[::10], Y[::10], test_size=1000)
-clf = LogisticRegression(random_state=0,penalty='l2',tol=0.0001,intercept_scaling=1).fit(X_train, Y_train)
-clf.score(X_train, Y_train)
-
 regression = LogisticRegression(random_state=0,penalty='l2',tol=0.0001,intercept_scaling=1).fit(X_train, Y_train)
-regression.score(X_train, Y_train)
-regression.score(X_test, Y_test)
+train_accuracy=regression.score(X_train, Y_train)
+test_accuracy=regression.score(X_test, Y_test)
+print('Training accuracy: %0.2f%%' % (train_accuracy*100))
+print('Testing accuracy: %0.2f%%' % (test_accuracy*100))
